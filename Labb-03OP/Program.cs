@@ -1,10 +1,45 @@
-﻿namespace Labb_03OP;
+﻿using System;
+using System.Linq;
 
-class Program
+namespace Labb_03OP
 {
-    static void Main(string[] args)
+    public class TemperatureCalculator
     {
-        Console.WriteLine("Hello, World!");
-    }
-}
+        private double[] temperatures;
 
+        public TemperatureCalculator()
+        {
+            /* Statisk array med index för alla dagar i maj, 31st */
+            temperatures = new double[31];
+            Random random = new Random();
+
+            /* Fyller arrayen med slumpade temperaturer mella -5 och 25 grader Celsius */
+            for (int i = 0; i < temperatures.Length; i++)
+            {
+                temperatures[i] = random.Next(-5, 26);
+            }
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
