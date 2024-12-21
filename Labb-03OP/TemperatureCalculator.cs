@@ -104,37 +104,39 @@ namespace Labb_03OP
         /* visar temperaturer över angivet värde */
         public void FilterTemperatures(double threshold)
         {
+            SortByDate();
             Console.WriteLine($"Temperaturer över {threshold} °C"); /* for-loop itererar varje element i arrayen */
-            for (int i = 0; i < temperatures.Length; i++)
+            for (int i = 0; i < dayAndTemperatures.Length; i++)
             {
-                if (temperatures[i] > threshold) /*kontroll om temp är högre än värdet angivet */
+                if (dayAndTemperatures[i].temperature > threshold) /*kontroll om temp är högre än värdet angivet */
                 {
-                    Console.WriteLine($"{i + 1} maj: {temperatures[i]} °C"); /*skriver ut dag och temp om ovanstående stämmer */
+                    Console.WriteLine($"{dayAndTemperatures[i].day} maj: {dayAndTemperatures[i].temperature} °C"); /*skriver ut dag och temp om ovanstående stämmer */
                 }
             }
         }
 
         public void GetTemperatureForDay(int day)
         {
+            SortByDate();
             if (day < 1 || day > 31)    /* kontrollerar så att datumet är giltligt (1-31) */
             {
                 Console.WriteLine("Ogiltigt val. Välj ett datum mellan 1 och 31.");
                 return;
             }
 
-            Console.WriteLine($"{day} maj: {temperatures[day - 1]} °C"); /* temp för specifik dag */
+            Console.WriteLine($"{day} maj: {dayAndTemperatures[day - 1].temperature} °C"); /* temp för specifik dag */
             if (day > 1)
             {
-                Console.WriteLine($"{day} maj: {temperatures[day - 2]} °C"); /* temp för föregående dag (om ej lägre än 1) */
+                Console.WriteLine($"{day - 1} maj: {dayAndTemperatures[day - 2].temperature} °C"); /* temp för föregående dag (om ej lägre än 1) */
             }
             if (day < 31)
             {
-                Console.WriteLine($"{day + 1} maj: {temperatures[day]} °C"); /* temp för nästa dag, (om ej större än 31) */
+                Console.WriteLine($"{day + 1} maj: {dayAndTemperatures[day].temperature} °C"); /* temp för nästa dag, (om ej större än 31) */
             }
         }
         public double GetMostFrequentTemperature()
         { /* Grupperar sen sorterar temperaturer inom index i fallande ordning, alltså högsta först */
-            return temperatures.GroupBy(t => t) /* Gruppering av index */
+            return dayAndTemperatures.GroupBy(t => t.temperature) /* Gruppering av index */
                                .OrderByDescending(g => g.Count()) /* Sortering av grupper */
                                .First() /* Hämtar första gruppen i sorterade listan */
                                .Key; /* Nyckel för gruppen */
