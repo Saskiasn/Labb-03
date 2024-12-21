@@ -14,79 +14,81 @@ namespace Labb_03OP
             //calculator.DisplayTemperatures();
 
             Console.WriteLine("\nVällkommen till ditt väder program. Välj ett alternativ från meny genom att knappa in respektiva siffran ");
-  
-            Console.WriteLine("1: Lista för alla temperaturdata i maj");
-            Console.WriteLine("2: Medeltemperaturen i maj");
-            Console.WriteLine("3: Se varmaste/kallaste dagen i maj");
-            Console.WriteLine("4: Mediantemperatur i maj");
-            Console.WriteLine("5: Filtrera dagar över ett tröskelvärde");
-            Console.WriteLine("6: Hämta temperatur för en specifik dag");
-            Console.WriteLine("7: Vanligast förekommande temperatur");
-            Console.WriteLine("0: Avsluta");
-            Console.Write("Ditt val: ");
 
-            char inputChar = Console.ReadKey().KeyChar;
-
-            switch (inputChar)
+            while (true)
             {
-                case '1':
-                    HandleTemperatureChoice(calculator);
-                    break;
+                Console.WriteLine("1: Lista för alla temperaturdata i maj");
+                Console.WriteLine("2: Medeltemperaturen i maj");
+                Console.WriteLine("3: Se varmaste/kallaste dagen i maj");
+                Console.WriteLine("4: Mediantemperatur i maj");
+                Console.WriteLine("5: Filtrera dagar över ett tröskelvärde");
+                Console.WriteLine("6: Hämta temperatur för en specifik dag");
+                Console.WriteLine("7: Vanligast förekommande temperatur");
+                Console.WriteLine("0: Avsluta");
+                Console.Write("Ditt val: ");
 
-                case '2':
-                    double medel = calculator.GetAverageTemperature();
-                    Console.WriteLine($"Medeltemperaturen i maj är {medel}°C");
+                char inputChar = Console.ReadKey().KeyChar;
 
-                    break;
-                case '3':
-                    HandleHotColdDay(calculator);
+                switch (inputChar)
+                {
+                    case '1':
+                        HandleTemperatureChoice(calculator);
+                        break;
 
-                    break;
-                case '4':
-                    double median = calculator.GetMedianTemperature();
-                    Console.WriteLine($"Mediantemperaturen i maj var {median} °C");
+                    case '2':
+                        double medel = calculator.GetAverageTemperature();
+                        Console.WriteLine($"Medeltemperaturen i maj är {medel}°C");
 
-                    break;
+                        break;
+                    case '3':
+                        HandleHotColdDay(calculator);
 
-                case '5':
-                    Console.WriteLine("Skriv in lägsta temperaturen du vill visa");
-                    string lowestTemp = Console.ReadLine();
-                    double lowestTempDouble = Convert.ToDouble(lowestTemp);
-                    calculator.FilterTemperatures(lowestTempDouble);
+                        break;
+                    case '4':
+                        double median = calculator.GetMedianTemperature();
+                        Console.WriteLine($"Mediantemperaturen i maj var {median} °C");
 
-                    break;
+                        break;
 
+                    case '5':
+                        Console.WriteLine("Skriv in lägsta temperaturen du vill visa");
+                        string lowestTemp = Console.ReadLine();
+                        double lowestTempDouble = Convert.ToDouble(lowestTemp);
+                        calculator.FilterTemperatures(lowestTempDouble);
 
-                case '6':
-                    Console.WriteLine("Vilken dag vill du se temperaturen för?");
-                    string day = Console.ReadLine();
-                    int dayInt = Convert.ToInt32(day);
-                    calculator.GetTemperatureForDay(dayInt);
-
-                    break;
-
-                case '7':
-                    double temp = calculator.GetMostFrequentTemperature();
-                    Console.WriteLine($"Vanligaste förekommande temperaturen är {temp} °C");
-
-                    break;
+                        break;
 
 
-                case '0':
-                    Console.WriteLine("\n\nProgrammet avslutas.");
-                    Environment.Exit(0);
-                    break;
+                    case '6':
+                        Console.WriteLine("Vilken dag vill du se temperaturen för?");
+                        string day = Console.ReadLine();
+                        int dayInt = Convert.ToInt32(day);
+                        calculator.GetTemperatureForDay(dayInt);
 
-                // Trycker användaren på något annat än 1-2 får man felmeddelande
-                default:
-                    Console.WriteLine("Ogiltigt val.\n");
-                    Console.WriteLine("Programmet avslutas.");
-                    Environment.Exit(0);
-                    break;
+                        break;
+
+                    case '7':
+                        double temp = calculator.GetMostFrequentTemperature();
+                        Console.WriteLine($"Vanligaste förekommande temperaturen är {temp} °C");
+
+                        break;
+
+
+                    case '0':
+                        Console.WriteLine("\n\nProgrammet avslutas.");
+                        Environment.Exit(0);
+                        break;
+
+                    // Trycker användaren på något annat än 1-2 får man felmeddelande
+                    default:
+                        Console.WriteLine("Ogiltigt val.\n");
+                        Console.WriteLine("Programmet avslutas.");
+                        Environment.Exit(0);
+                        break;
+                }
+
+
             }
-
-
-
         }
 
 
