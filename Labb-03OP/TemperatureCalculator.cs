@@ -7,63 +7,79 @@ using System.Linq;
 
 namespace Labb_03OP
 {
+    public struct DayAndTemperature
+    {
+        public int day;
+        public double temperature;
+
+        public DayAndTemperature(int day, double temperature)
+        {
+            this.day = day;
+            this.temperature = temperature;
+        }
+    }
+
     public class TemperatureCalculator
     {
         private double[] temperatures;
 
+        private DayAndTemperature[] dayAndTemperatures;
+
+
         public TemperatureCalculator()
         {
             /* Statisk array med index för alla dagar i maj, 31st */
-            temperatures = new double[31];
+
+            dayAndTemperatures = new DayAndTemperature[31];
+
             Random random = new Random();
 
             /* Fyller arrayen med slumpade temperaturer mellan -5 och 25 °C */
-            for (int i = 0; i < temperatures.Length; i++)
+            for (int i = 0; i < dayAndTemperatures.Length; i++)
             {
-                temperatures[i] = random.Next(-5, 26);
+                
+                dayAndTemperatures[i] = new DayAndTemperature(i+1, random.Next(-5, 26));
             }
         }
 
         public void DisplayTemperatures()
         {   /* temperaturerna genererade i index itereras genom en for-loop */
             Console.WriteLine("Temperaturer i maj");
-            for (int i = 0; i < temperatures.Length; i++)
+            for (int i = 0; i < dayAndTemperatures.Length; i++)
             {
-                Console.WriteLine($"{i + 1} maj är temperaturen {temperatures[i]} °C");
+                Console.WriteLine($"{dayAndTemperatures[i].day} maj är temperaturen {dayAndTemperatures[i].temperature} °C");
             }
         }
 
         /* LINQ-funktion, beräknar medelvärdet i arrayen */
         public double GetAverageTemperature()
         {
-            return temperatures.Average();
+            return dayAndTemperatures.Average(dayAndTemperature => dayAndTemperature.temperature);
         }
 
         /* LINQ-funktion, Max() hittar högsta värde(temperatur) i index och + 1 ger oss motsvarande dag */
-        public (int day, double temp) GetHighestTemperature()
+        public DayAndTemperature GetHighestTemperature()
         {
-            double maxTemp = temperatures.Max();
-            int day = Array.IndexOf(temperatures, maxTemp) + 1;
-            return (day, maxTemp);
+            DayAndTemperature highestTemp = dayAndTemperatures.MaxBy(dayAndTemperature => dayAndTemperature.temperature);
+            return highestTemp;
         }
         /* samma som funktionen ovanför, men istället lägsta temp */
-        public (int day, double temp) GetLowestTemperature()
+        public DayAndTemperature GetLowestTemperature()
         {
-            double minTemp = temperatures.Min();
-            int day = Array.IndexOf(temperatures, minTemp) + 1;
-            return (day, minTemp);
+            DayAndTemperature lowestDayTemp = dayAndTemperatures.MinBy(dayAndTemperature => dayAndTemperature.temperature);
+            return lowestDayTemp;
         }
 
         /*LINQ. OrderBy() sorterar temperaturerna stigande och ToArray() konverterar ordningen till en array */
         public double GetMedianTemperature()
         {
-            var indexTemps = temperatures.OrderBy(t => t).ToArray();
-            int midIndex = indexTemps.Length / 2; /* räknar ut medianen */
-            if (indexTemps.Length % 2 == 0) /*kollar om antalet temperaturer är jämnt */
+            SortTemperatures(true); /* Vi ser till att arrayen är sorterad på temperatur för att kunna hämta ut rätt median */
+            int midIndex = dayAndTemperatures.Length / 2; /* räknar ut medianen */
+            if (dayAndTemperatures.Length % 2 == 0) /*kollar om antalet temperaturer är jämnt */
             {
-                return (indexTemps[midIndex] - 1 + indexTemps[midIndex]) / 2; /*ger oss de 2 medianerna om jämt antal */
+                return (dayAndTemperatures[midIndex - 1].temperature + dayAndTemperatures[midIndex].temperature) / 2; /*ger oss de 2 medianerna om jämt antal */
             }
-            return indexTemps[midIndex]; /* ger medianen om ojämnt antal */
+            return dayAndTemperatures[midIndex].temperature; /* ger medianen om ojämnt antal */
         }
 
         /* sorterar temperaturer i stigande ordning om ascending = true */
@@ -71,14 +87,18 @@ namespace Labb_03OP
         {
             if (ascending)
             {
-                Array.Sort(temperatures);
-
+                dayAndTemperatures = dayAndTemperatures.OrderBy(dayAndTemperature => dayAndTemperature.temperature).ToArray();
             }
             else
             {
-                Array.Sort(temperatures);
-                Array.Reverse(temperatures); /* vänder på ordningen i arrayen så det blir fallande istället */
+                dayAndTemperatures = dayAndTemperatures.OrderBy(dayAndTemperature => dayAndTemperature.temperature).ToArray();
+                Array.Reverse(dayAndTemperatures); /* vänder på ordningen i arrayen så det blir fallande istället */
             }
+        }
+
+        public void SortByDate()
+        {
+            dayAndTemperatures = dayAndTemperatures.OrderBy(dayAndTemperature => dayAndTemperature.day).ToArray();
         }
 
         /* visar temperaturer över angivet värde */
