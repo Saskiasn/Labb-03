@@ -4,6 +4,7 @@ using System.Linq;
 
 
 
+
 namespace Labb_03OP
 {
     public class TemperatureCalculator
@@ -71,6 +72,7 @@ namespace Labb_03OP
             if (ascending)
             {
                 Array.Sort(temperatures);
+
             }
             else
             {
