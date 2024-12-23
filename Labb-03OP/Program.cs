@@ -12,12 +12,12 @@ namespace Labb_03OP
 
             // Call methods to test or display data
             //calculator.DisplayTemperatures();
-
-            Console.WriteLine("\nVällkommen till ditt väder program. Välj ett alternativ från meny genom att knappa in respektiva siffran ");
-
+            Console.WriteLine("___________________________________________________________________________________________________________");
+            Console.WriteLine("\nVällkommen till ditt väder program. Välj ett alternativ från meny genom att knappa in respektiva siffran \n");
+            Console.WriteLine("___________________________________________________________________________________________________________");
             while (true)
             {
-                Console.WriteLine("1: Lista för alla temperaturdata i maj");
+                Console.WriteLine("\n1: Lista för alla temperaturdata i maj");
                 Console.WriteLine("2: Medeltemperaturen i maj");
                 Console.WriteLine("3: Se varmaste/kallaste dagen i maj");
                 Console.WriteLine("4: Mediantemperatur i maj");
@@ -37,7 +37,7 @@ namespace Labb_03OP
 
                     case '2':
                         double medel = calculator.GetAverageTemperature();
-                        Console.WriteLine($"Medeltemperaturen i maj är {medel}°C");
+                        Console.WriteLine($"\n\nMedeltemperaturen i maj är {medel}°C");
 
                         break;
                     case '3':
@@ -46,12 +46,12 @@ namespace Labb_03OP
                         break;
                     case '4':
                         double median = calculator.GetMedianTemperature();
-                        Console.WriteLine($"Mediantemperaturen i maj var {median} °C");
+                        Console.WriteLine($"\n\nMediantemperaturen i maj var {median} °C");
 
                         break;
 
                     case '5':
-                        Console.WriteLine("Skriv in lägsta temperaturen du vill visa");
+                        Console.WriteLine("\n\nSkriv in lägsta temperaturen du vill visa");
                         string lowestTemp = Console.ReadLine();
                         double lowestTempDouble = Convert.ToDouble(lowestTemp);
                         calculator.FilterTemperatures(lowestTempDouble);
@@ -60,7 +60,7 @@ namespace Labb_03OP
 
 
                     case '6':
-                        Console.WriteLine("Vilken dag vill du se temperaturen för?");
+                        Console.WriteLine("\n\n Visa temperaturen för en specifik dag, ange dagen (1-31) för att visa temperaturen");
                         string day = Console.ReadLine();
                         int dayInt = Convert.ToInt32(day);
                         calculator.GetTemperatureForDay(dayInt);
@@ -69,7 +69,7 @@ namespace Labb_03OP
 
                     case '7':
                         double temp = calculator.GetMostFrequentTemperature();
-                        Console.WriteLine($"Vanligaste förekommande temperaturen är {temp} °C");
+                        Console.WriteLine($"\n\nVanligaste förekommande temperaturen är {temp} °C");
 
                         break;
 
@@ -95,11 +95,11 @@ namespace Labb_03OP
 
         public static void HandleTemperatureChoice(TemperatureCalculator calculator)
         {
-            Console.WriteLine("Välj ett alternativ:");
+            Console.WriteLine("\n\nVälj ett alternativ:\n");
             Console.WriteLine("1: Se temperaturer i stigande ordning");
             Console.WriteLine("2: Se temperaturer i fallande ordning");
             Console.WriteLine("3: Se alla temperaturer sorterade efter datum");
-            Console.WriteLine("Tryck på tangenten 1, 2 eller 3 för ditt val:");
+            Console.WriteLine("\nTryck på tangenten 1, 2 eller 3 för ditt val:\n");
 
             char inputChar = Console.ReadKey().KeyChar;
 
@@ -131,11 +131,11 @@ namespace Labb_03OP
 
         public static void HandleHotColdDay(TemperatureCalculator calculator)
         {
-            Console.WriteLine("Välj ett alternativ:");
+            Console.WriteLine("\nVälj ett alternativ:\n");
             Console.WriteLine("1: Se varmaste dagen i maj");
             Console.WriteLine("2: Se kallaste dagen i maj");
             Console.WriteLine("3: Gå tillbaka");
-            Console.WriteLine("Tryck på tangenten 1, 2 eller 3 för ditt val:");
+            Console.WriteLine("\nTryck på tangenten 1, 2 eller 3 för ditt val:\n");
 
             char inputChar = Console.ReadKey().KeyChar;
 

@@ -21,7 +21,6 @@ namespace Labb_03OP
 
     public class TemperatureCalculator
     {
-        private double[] temperatures;
 
         private DayAndTemperature[] dayAndTemperatures;
 
